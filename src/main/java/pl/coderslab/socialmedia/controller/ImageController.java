@@ -1,4 +1,4 @@
-package pl.coderslab.socialmedia;
+package pl.coderslab.socialmedia.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

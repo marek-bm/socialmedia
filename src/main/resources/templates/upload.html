@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+    <title>Title</title>
 </head>
 <body>
-$END$
+
+<h3 th:if="${#vars['flash.message']}" th:text="${#vars['flash.message']}"> </h3>
+
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileToUpload"/>
+    <input type="submit" name="Upload"/>
+</form>
+
+
 </body>
 </html>
