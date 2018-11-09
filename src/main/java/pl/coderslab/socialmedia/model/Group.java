@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table (name="groups")
 public class Group {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +18,7 @@ public class Group {
     private String name;
 
     @Getter @Setter
-    @OneToMany
+    @ManyToMany
     private List<User> members;
 
     @Getter @Setter
@@ -25,6 +26,6 @@ public class Group {
 
     @Getter @Setter
     @OneToMany
-    private List<Post> posts;
+    private List<Tweet> tweets;
 
 }

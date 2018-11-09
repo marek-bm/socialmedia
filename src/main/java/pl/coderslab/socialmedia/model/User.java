@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -34,10 +35,12 @@ public class User {
     private String password;
 
     @Getter @Setter
+    @ManyToMany (mappedBy = "members")
     private List<Group> groups;
 
     @Getter @Setter
-    private List<Post> posts;
+    @OneToMany (mappedBy = "author")
+    private List<Tweet> tweets;
 
     @Getter @Setter
     @OneToMany (mappedBy = "author")
@@ -64,14 +67,21 @@ public class User {
     @OneToMany (cascade = CascadeType.MERGE, mappedBy = "reciever")
     private List<Message> recieved;
 
-
     @Getter @Setter
     @Temporal(TemporalType.TIMESTAMP)
     private Date registered;
 
+    @Getter @Setter
+    private boolean active;
+
+    @ManyToMany (fetch = FetchType.EAGER)
+    @Getter @Setter
+    private Set<Role> roles;
+
+
     public User() {
         this.comments=new ArrayList<>();
-        this.posts=new ArrayList<>();
+        this.tweets =new ArrayList<>();
         this.groups=new ArrayList<>();
         this.followers=new ArrayList<>();
         this.following=new ArrayList<>();
@@ -79,5 +89,6 @@ public class User {
         this.recieved=new ArrayList<>();
         this.registered=new Date();
         this.avatarPath="avatars/anonymous.png";
+        this.active=true;
     }
 }

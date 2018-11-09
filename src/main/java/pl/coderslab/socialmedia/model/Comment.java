@@ -29,7 +29,7 @@ public class Comment {
     User author;
 
     @ManyToOne (cascade = CascadeType.MERGE)
-    private Post post;
+    private Tweet tweet;
 
 
 }

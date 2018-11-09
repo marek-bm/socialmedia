@@ -18,9 +18,11 @@ public class Message {
     private String text;
 
     @Getter @Setter
+    @ManyToOne
     private User sender;
 
     @Getter @Setter
+    @ManyToOne
     private User reciever;
 
     @Getter @Setter
