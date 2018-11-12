@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-//        User user=userService.findByUserName(username);
+
         User user=userService.findByUserName(username);
         if(user==null){
             throw new UsernameNotFoundException(username);
@@ -36,7 +36,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }
 
-        return new CurrentUser(user.getUsername(), user.getPassword(), grantedAuthorities, user);
+        CurrentUser currentUser=new CurrentUser(user.getUsername(), user.getPassword(), grantedAuthorities, user);
+
+        return currentUser;
     }
 
 

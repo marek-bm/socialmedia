@@ -14,9 +14,11 @@ public interface UserService {
 
     List<User> findAll();
 
-    User findById(int id);
+    User findById(long id);
 
     boolean checkIfValidOldPassword(User user, String oldPassword);
 
     void changeUserPassword(User user, String password);
+
+    User save(User user);
 }

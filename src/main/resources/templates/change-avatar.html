@@ -35,7 +35,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
 
-                    <form action="/home" method="post">
+
 
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Select from available avatars</h5>
@@ -45,28 +45,75 @@
                         </div>
                         <div class="modal-body">
 
-                            <div id="myCarousel" class="carousel slide media-middle" data-ride="carousel">
+
+
 
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class="item active" th:each="avatar:${avatars}">
-                                        <div class="radio">
-                                            <img th:src="${avatar.toString()}" class="img-circle" height="150"
-                                                 width="150" alt="avatar">
-                                            <label><input type="radio" name="avatar" th:value="${avatar.toString()}" checked></label>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        <div>
+                                            <!--/*@thymesVar id="user" type="pl.coderslab.socialmedia.model.User"*/-->
+                                            <form th:action="@{/edit}" method="post" th:object="${user}">
+                                                <img th:src="${avatar}" class="img-circle" height="150"
+                                                     width="150" alt="avatar"/>
+
+                                                <input type="hidden" name=id th:field="*{id}"/>
+
+                                                <input type="submit" th:value="${avatar}" name="avatar"
+                                                       class="btn btn-primary" text="Save"/>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
+
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+                                    Showing 31 to 40 of 57 entries
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous" id="dataTable_previous"><a
+                                                href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+                                                class="page-link">Previous</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+                                                                                  data-dt-idx="1" tabindex="0"
+                                                                                  class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+                                                                                  data-dt-idx="2" tabindex="0"
+                                                                                  class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+                                                                                  data-dt-idx="3" tabindex="0"
+                                                                                  class="page-link">3</a></li>
+                                        <li class="paginate_button page-item active"><a href="#"
+                                                                                        aria-controls="dataTable"
+                                                                                        data-dt-idx="4" tabindex="0"
+                                                                                        class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+                                                                                  data-dt-idx="5" tabindex="0"
+                                                                                  class="page-link">5</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="dataTable"
+                                                                                  data-dt-idx="6" tabindex="0"
+                                                                                  class="page-link">6</a></li>
+                                        <li class="paginate_button page-item next" id="dataTable_next"><a href="#"
+                                                                                                          aria-controls="dataTable"
+                                                                                                          data-dt-idx="7"
+                                                                                                          tabindex="0"
+                                                                                                          class="page-link">Next</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+
+
+
+                            <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
                         </div>
 
-                    </form>
                 </div>
             </div>
         </div>

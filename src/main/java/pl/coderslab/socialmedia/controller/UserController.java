@@ -1,6 +1,6 @@
 package pl.coderslab.socialmedia.controller;
 
-import lombok.AllArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -13,30 +13,46 @@ import pl.coderslab.socialmedia.model.User;
 import pl.coderslab.socialmedia.service.ImageService;
 import pl.coderslab.socialmedia.service.UserService;
 
-import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
-
 @Controller
-public class HomeController {
+public class UserController {
+
+
+    @Autowired
+    ImageService imageService;
 
     @Autowired
     UserService userService;
 
-    @RequestMapping("/home")
-    public String home (Authentication authentication, Model model){
+    @RequestMapping (value = "/edit", method = RequestMethod.GET)
+    public String homePage(Model model, Authentication authentication){
+
         String username=authentication.getName();
 
         User user=userService.findByUserName(username);
 
         model.addAttribute("user", user);
 
-        return "home";
+        Page<String> avatars=imageService.getPagedPathsToAvatars();
+
+        model.addAttribute("avatars", avatars);
+
+        return "change-avatar";
     }
+
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String changeAvatar(@RequestParam long id, @RequestParam String avatar, Authentication authentication){
+
+        String name=authentication.getName();
+
+        User user=userService.findByUserName(name);
+
+        user.setAvatarPath(avatar);
+
+        userService.save(user);
+
+        return "redirect:/home";
+
+    }
+
 }

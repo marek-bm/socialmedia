@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.stereotype.Component;
 import pl.coderslab.socialmedia.service.implementation.UserDetailsServiceImpl;
 
 
@@ -27,9 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new UserDetailsServiceImpl();
     }
 
-
-
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService()).
@@ -42,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/home").authenticated()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .and()
