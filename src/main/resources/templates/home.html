@@ -60,7 +60,7 @@
         <!--LEFT COLUMN-->
         <div class="col-sm-3 well">
             <div class="well">
-                <p><a href="/profile">My Profile</a></p>
+                <p><a href="/user-posts">My Profile</a></p>
                 <img th:src="${user.getAvatarPath()}" class="img-circle" height="65" width="65" alt="Avatar">
             </div>
             <div class="well">
@@ -159,18 +159,18 @@
             </div>
 
             <!--single post-->
-            <div class="row">
+            <div class="row" th:each="t:${tweets}">
                 <div class="col-sm-12">
                     <div class="panel panel-default text-left">
-                        <div class="panel-heading"> Published on: 2018-11-7</div>
+                        <div class="panel-heading" th:text="|Publisher on ${t.dateCreated}|"></div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <p>John</p>
-                                    <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar">
+                                    <p th:text="${t.author.username}"></p>
+                                    <img th:src="${t.author.avatarPath}" class="img-circle" height="55" width="55" alt="Avatar">
                                 </div>
                                 <div class="col-sm-10">
-                                    <p>Just Forgot that I had to mention something about someone to someone about how I
+                                    <p th:text="${t.text}">Just Forgot that I had to mention something about someone to someone about how I
                                         forgot something, but now I forgot it. Ahh, forget it! Or wait. I remember....
                                         no I don't.</p>
                                 </div>
@@ -202,9 +202,9 @@
                             </div>
 
                             <ul class="nav navbar-nav ">
-                                <li><a href="#" style="color: black"><span class="glyphicon glyphicon-thumbs-up"></span>
-                                    10</a></li>
-                                <li><a href="#" style="color: black"><span class="glyphicon glyphicon-comment"></span> 2</a>
+                                <li><a href="#" style="color: black" th:text="${t.numberOfLikes}"><span class="glyphicon glyphicon-thumbs-up"></span>
+                                    </a></li>
+                                <li><a href="#" style="color: black" th:text="${t.comments.size()}"><span class="glyphicon glyphicon-comment"></span></a>
                                 </li>
                             </ul>
                         </div>

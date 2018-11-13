@@ -38,4 +38,31 @@ public class TweetServiceImpl implements TweetService {
         return tweetRepository.saveAndFlush(tweet);
 
     }
+
+    @Override
+    public List<Tweet> findAllByAuthorIn(List<User> authors) {
+        try {
+
+            List<Tweet> tweets=tweetRepository.findAllByAuthorIn(authors);
+            return tweets;
+
+        } catch (NullPointerException e) {
+
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
+    }
+
+    @Override
+    public Tweet findById(long tweetId) {
+        try {
+            return tweetRepository.findById(tweetId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

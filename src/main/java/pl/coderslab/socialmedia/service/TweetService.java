@@ -10,4 +10,8 @@ public interface TweetService {
     List<Tweet> findAllByAuthor(User author);
 
     Tweet save(Tweet tweet);
+
+    List<Tweet> findAllByAuthorIn(List<User> authors);
+
+    Tweet findById(long id);
 }

@@ -60,7 +60,7 @@
         <!--LEFT COLUMN-->
         <div class="col-sm-3 well">
             <div class="well">
-                <p><a href="/profile">My Profile</a></p>
+                <p><a href="/user-posts">My Profile</a></p>
                 <img th:src="${user.getAvatarPath()}" class="img-circle" height="65" width="65" alt="Avatar">
             </div>
             <div class="well">
@@ -180,14 +180,19 @@
 
                         <div class="panel-footer" style="background-color: white">
                             <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default btn-lg" data-toggle="tooltip"
-                                            title="Thumb up if you like it">
-                                        <span class="glyphicon glyphicon-thumbs-up"></span> Like
-                                    </button>
-                                </div>
 
                                 <div class="btn-group" role="group">
+
+                                    <form th:action="@{/give-like}" method="post">
+                                        <button type="input" name="tweetId" th:value="${tweet.getId()}"
+                                                class="btn btn-default btn-lg" data-toggle="tooltip"
+                                                title="Thumb up if you like it">
+                                            <span class="glyphicon glyphicon-thumbs-up"></span> Like
+                                        </button>
+                                    </form>
+                        </div>
+
+                        <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default btn-lg " data-toggle="tooltip"
                                             title="Share your opinion with other">
                                         <span class="glyphicon glyphicon-comment"></span> Comment
@@ -204,8 +209,10 @@
 
                             <ul class="nav navbar-nav ">
                                 <li><a href="#" style="color: black"><span class="glyphicon glyphicon-thumbs-up"></span>
-                                    10</a></li>
-                                <li><a href="#" style="color: black"><span class="glyphicon glyphicon-comment"></span> 2</a>
+                                    <span th:text="${tweet.numberOfLikes}"></span></a>
+                                </li>
+                                <li><a href="#" style="color: black" ><span class="glyphicon glyphicon-comment"></span>
+                                    <span th:text="${tweet.comments.size()}"></span></a>
                                 </li>
                             </ul>
                         </div>

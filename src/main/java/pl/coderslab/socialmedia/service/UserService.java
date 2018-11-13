@@ -1,5 +1,6 @@
 package pl.coderslab.socialmedia.service;
 
+import org.springframework.security.core.Authentication;
 import pl.coderslab.socialmedia.model.User;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface UserService {
     void changeUserPassword(User user, String password);
 
     User save(User user);
+
+    User getCurrentUser(Authentication authentication);
 }

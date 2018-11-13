@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.socialmedia.model.Tweet;
 import pl.coderslab.socialmedia.model.User;
 import pl.coderslab.socialmedia.service.ImageService;
+import pl.coderslab.socialmedia.service.TweetService;
 import pl.coderslab.socialmedia.service.UserService;
 
 import javax.validation.Valid;
@@ -30,20 +31,27 @@ public class HomeController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TweetService tweetService;
+
     @RequestMapping("/home")
     public String home (Authentication authentication, Model model){
-        String username=authentication.getName();
 
-        User user=userService.findByUserName(username);
+        User user = userService.getCurrentUser(authentication);
 
         Tweet tweet=new Tweet();
 
         tweet.setAuthor(user);
 
+        List<Tweet> followingPeopleTweets=tweetService.findAllByAuthorIn(user.getFollowing());
+
         model.addAttribute("user", user);
 
         model.addAttribute("tweet", tweet);
 
+        model.addAttribute("tweets", followingPeopleTweets);
+
         return "home";
     }
+
 }

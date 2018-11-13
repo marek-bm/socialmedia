@@ -11,4 +11,8 @@ import java.util.List;
 public interface TweetRepository extends JpaRepository<Tweet, Long> {
 
     List<Tweet> findAllByAuthor(User author);
+
+    List<Tweet> findAllByAuthorIn(List<User> authors);
+
+    Tweet findById(long id);
 }

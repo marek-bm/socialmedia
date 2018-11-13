@@ -1,5 +1,6 @@
 package pl.coderslab.socialmedia.service.implementation;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.socialmedia.model.Role;
@@ -67,6 +68,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         return userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public User getCurrentUser(Authentication authentication) {
+
+        String username=authentication.getName();
+
+        return userRepository.findByUsername(username);
+
     }
 
 }

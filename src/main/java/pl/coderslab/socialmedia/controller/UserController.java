@@ -33,9 +33,7 @@ public class UserController {
     @RequestMapping ("/user-posts")
     public String userAccount(Model model, Authentication authentication){
 
-        String username=authentication.getName();
-
-        User user=userService.findByUserName(username);
+        User user = userService.findByUserName(authentication.getName());
 
         List<Tweet> userTweets=tweetService.findAllByAuthor(user);
 
@@ -50,9 +48,7 @@ public class UserController {
     @RequestMapping (value = "/edit", method = RequestMethod.GET)
     public String homePage(Model model, Authentication authentication){
 
-        String username=authentication.getName();
-
-        User user=userService.findByUserName(username);
+        User user = userService.getCurrentUser(authentication);
 
         model.addAttribute("user", user);
 
@@ -67,9 +63,7 @@ public class UserController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String changeAvatar(@RequestParam long id, @RequestParam String avatar, Authentication authentication){
 
-        String name=authentication.getName();
-
-        User user=userService.findByUserName(name);
+        User user = userService.getCurrentUser(authentication);
 
         user.setAvatarPath(avatar);
 
