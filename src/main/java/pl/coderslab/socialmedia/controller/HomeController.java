@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.socialmedia.model.Tweet;
 import pl.coderslab.socialmedia.model.User;
 import pl.coderslab.socialmedia.service.ImageService;
 import pl.coderslab.socialmedia.service.UserService;
@@ -35,7 +36,13 @@ public class HomeController {
 
         User user=userService.findByUserName(username);
 
+        Tweet tweet=new Tweet();
+
+        tweet.setAuthor(user);
+
         model.addAttribute("user", user);
+
+        model.addAttribute("tweet", tweet);
 
         return "home";
     }

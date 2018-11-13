@@ -41,8 +41,9 @@ public class Tweet {
     private Group group;
 
     public Tweet() {
-     this.dateCreated=new Date();
+        this.dateCreated=new Date();
         this.comments=new ArrayList<>();
+        this.numberOfLikes=0;
     }
 
 }

@@ -78,6 +78,9 @@ public class User {
     @Getter @Setter
     private Set<Role> roles;
 
+    @OneToMany
+    @Getter @Setter
+    private List<Tweet> likedTweets;
 
     public User() {
         this.comments=new ArrayList<>();

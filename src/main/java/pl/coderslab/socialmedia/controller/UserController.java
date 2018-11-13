@@ -9,9 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.coderslab.socialmedia.model.Tweet;
 import pl.coderslab.socialmedia.model.User;
 import pl.coderslab.socialmedia.service.ImageService;
+import pl.coderslab.socialmedia.service.TweetService;
 import pl.coderslab.socialmedia.service.UserService;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -22,6 +26,26 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    TweetService tweetService;
+
+    @RequestMapping ("/user-posts")
+    public String userAccount(Model model, Authentication authentication){
+
+        String username=authentication.getName();
+
+        User user=userService.findByUserName(username);
+
+        List<Tweet> userTweets=tweetService.findAllByAuthor(user);
+
+        model.addAttribute("user", user);
+
+        model.addAttribute("tweets", userTweets);
+
+        return "user-wall";
+
+    }
 
     @RequestMapping (value = "/edit", method = RequestMethod.GET)
     public String homePage(Model model, Authentication authentication){
