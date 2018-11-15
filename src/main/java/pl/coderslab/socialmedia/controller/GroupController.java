@@ -5,9 +5,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.socialmedia.model.Group;
+import pl.coderslab.socialmedia.model.Tweet;
 import pl.coderslab.socialmedia.model.User;
 import pl.coderslab.socialmedia.service.GroupService;
+import pl.coderslab.socialmedia.service.TweetService;
 import pl.coderslab.socialmedia.service.UserService;
 
 import java.util.List;
@@ -21,8 +24,11 @@ public class GroupController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TweetService tweetService;
+
     @RequestMapping("/home")
-    public String indexPage(Model model, Authentication authentication){
+    public String homePage(Model model, Authentication authentication){
 
         List<Group> groups=groupService.findAll();
 
@@ -30,5 +36,32 @@ public class GroupController {
 
         return "home";
     }
+
+
+    @RequestMapping("/group")
+    public String homePage(Model model, Authentication authentication, @RequestParam long groupId){
+
+        Group group=groupService.findById(groupId);
+
+        List<Tweet> tweets=tweetService.findAllByGroup_Id(groupId);
+
+        User user=userService.findByUserName(authentication.getName());
+
+        Tweet tweet=new Tweet();
+
+        tweet.setAuthor(user);
+
+        model.addAttribute("chatRoom", group);
+
+        model.addAttribute("tweets", tweets);
+
+        model.addAttribute("user", user);
+
+        model.addAttribute("tweet", tweet);
+
+        return "group-page";
+    }
+
+
 
 }

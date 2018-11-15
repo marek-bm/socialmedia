@@ -14,4 +14,6 @@ public interface TweetService {
     List<Tweet> findAllByAuthorIn(List<User> authors);
 
     Tweet findById(long id);
+
+    List<Tweet> findAllByGroup_Id(long id);
 }

@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.socialmedia.model.Tweet;
 import pl.coderslab.socialmedia.model.User;
+import pl.coderslab.socialmedia.service.GroupService;
 import pl.coderslab.socialmedia.service.TweetService;
 import pl.coderslab.socialmedia.service.UserService;
 
@@ -25,13 +27,15 @@ public class TweetController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    GroupService groupService;
+
     @RequestMapping(value = "/tweet-new",method = RequestMethod.POST)
-    public String newTweet(@Valid Tweet tweet, BindingResult result, Authentication authentication){
+    public String newTweet(@ModelAttribute Tweet tweet,
+                           Authentication authentication,
+                           @RequestParam long groupId){
 
-        if(result.hasErrors()){
-
-            return "redirect:/home";
-        }
+        tweet.setGroup(groupService.findById(groupId));
 
         tweetService.save(tweet);
 

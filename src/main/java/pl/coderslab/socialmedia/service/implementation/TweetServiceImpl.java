@@ -65,4 +65,9 @@ public class TweetServiceImpl implements TweetService {
         return null;
     }
 
+    @Override
+    public List<Tweet> findAllByGroup_Id(long id) {
+        return tweetRepository.findAllByGroup_Id(id);
+    }
+
 }

@@ -15,4 +15,6 @@ public interface TweetRepository extends JpaRepository<Tweet, Long> {
     List<Tweet> findAllByAuthorIn(List<User> authors);
 
     Tweet findById(long id);
+
+    List<Tweet> findAllByGroup_Id(long id);
 }

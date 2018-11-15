@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div class="row" th:fragment="add-tweet">
+    <div class="col-sm-12">
+        <div class="panel panel-default text-left">
+            <div class="panel-heading">Post something...</div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-sm-2"><img class="img-circle" height="55" width="55"
+                                               th:src="${user.getAvatarPath()}" alt="Image"/></div>
+
+                    <div class="col-sm-10">
+
+
+                        <input class="input-lg col-lg-11 text-left"
+                               style="border-radius: 20px; border-style: solid" data-toggle="modal"
+                               data-target="#myModal" th:placeholder="|Whats up, ${user.getUsername()} |">
+
+                        <!--data-toggle="modal" data-target="#myModal"-->
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;
+                                        </button>
+                                        <h4 class="modal-title">Modal Header</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form th:object="${tweet}" th:action="@{/tweet-new}" method="post">
+                                            <div>
+                                                <input th:field="*{text}" class="col-sm-12 input-lg"
+                                                       style="border: hidden" type="text"
+                                                       placeholder="Start writing here"/>
+                                            </div>
+
+                                            <div>
+                                                <input th:field="*{author}" type="hidden"/>
+                                            </div>
+
+
+                                            <input type="hidden" th:field="*{group}" name="groupId"
+                                                   th:value="${chatRoom.id}">
+
+                                            <input type="submit" value="Submit" class="btn btn-default"/>
+                                        </form>
+                                    </div>
+
+                                    <div class="modal-footer">
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        </input>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
